@@ -20,7 +20,7 @@
         public string PreviousBlockHash { get; }
 
         [JsonProperty(Order = 3)]
-        public long Proof { get; }
+        public long Proof { get; set; }
 
         [JsonProperty(Order = 2)]
         public long Timestamp { get; }

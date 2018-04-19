@@ -17,6 +17,8 @@
     
     using System.Threading.Tasks;
 
+    using Blocks;
+
     using data;
 
     [Route("/")]
@@ -56,10 +58,18 @@
 
         // GET mine
         [HttpGet("mine")]
-        public object Mine()
+        public async Task<IActionResult> Mine()
         {
-            Response.ContentType = "application/json";
-            return new { mined = "true" };
+           var block = ProofFinder.BlockFinder(_persistence.Get().Last());
+            
+            _persistence.Append(block);
+            
+            var byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(block));
+            var stream = new MemoryStream(byteArray);
+            
+            return new FileStreamResult(stream, "application/json");
+            
+            
         }
     }
 }
