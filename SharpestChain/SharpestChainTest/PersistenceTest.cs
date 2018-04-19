@@ -15,7 +15,7 @@ namespace SharpestChainTest
             Persistence.Save(new[]{block});
             var loaded = Persistence.Load();
 
-            Assert.AreEqual(loaded[0], block);
+            Assert.That(loaded[0], Is.EqualTo(block));
         }
     }
 }
