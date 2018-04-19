@@ -12,9 +12,10 @@ namespace SharpestChainTest
         public void LoadWhatWasSaved()
         {
             var block = new Block(1, 0, 0, new Transaction[0], "");
+            Persistence.Save(new[]{block});
             var loaded = Persistence.Load();
 
-            Assert.Equals(loaded[0], block);
+            Assert.AreEqual(loaded[0], block);
         }
     }
 }
