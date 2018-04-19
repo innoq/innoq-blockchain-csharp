@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-
-namespace SharpestChain.Controllers
+﻿namespace SharpestChain.Controllers
 {
+    using System.Collections.Generic;
+
+    using Microsoft.AspNetCore.Mvc;
+
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
@@ -13,7 +11,7 @@ namespace SharpestChain.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] {"value1", "value2"};
+            return new[] {"value1", "value2"};
         }
 
         // GET api/values/5
