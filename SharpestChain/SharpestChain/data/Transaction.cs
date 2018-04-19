@@ -16,10 +16,10 @@
         [JsonProperty(Order = 1)]
         public Guid Id { get; }
 
-        [JsonProperty(Order = 2)]
+        [JsonProperty(Order = 3)]
         public string Payload { get; }
 
-        [JsonProperty(Order = 3)]
+        [JsonProperty(Order = 2)]
         public long Timestamp { get; }
 
         public static Transaction fromJson(string json)
