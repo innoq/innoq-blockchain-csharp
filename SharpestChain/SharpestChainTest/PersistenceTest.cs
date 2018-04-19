@@ -1,9 +1,10 @@
-﻿using NUnit.Framework;
-
-namespace SharpestChainTest
+﻿namespace Com.Innoq.SharpestChain
 {
-    using SharpestChain.Data;
-    using SharpestChain.IO;
+    using data;
+
+    using IO;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class PersistenceTest
@@ -15,7 +16,7 @@ namespace SharpestChainTest
             Persistence.Save(new[]{block});
             var loaded = Persistence.Load();
 
-            Assert.AreEqual(loaded[0], block);
+            Assert.That(loaded[0], Is.EqualTo(block));
         }
     }
 }

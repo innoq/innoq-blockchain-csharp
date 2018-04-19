@@ -1,11 +1,8 @@
-﻿namespace SharpestChain.Blocks
+﻿namespace Com.Innoq.SharpestChain.Blocks
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
-    using Cryptography;
-
-    using Data;
+    using data;
 
     using Util;
 

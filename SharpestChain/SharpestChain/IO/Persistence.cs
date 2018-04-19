@@ -1,6 +1,6 @@
-﻿namespace SharpestChain.IO
+﻿namespace Com.Innoq.SharpestChain.IO
 {
-    using Data;
+    using data;
 
     public class Persistence
     {

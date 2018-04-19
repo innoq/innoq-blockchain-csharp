@@ -1,4 +1,4 @@
-﻿namespace SharpestChain
+﻿namespace Com.Innoq.SharpestChain
 {
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;

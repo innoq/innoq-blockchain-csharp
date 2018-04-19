@@ -1,4 +1,4 @@
-﻿namespace SharpestChain.Cryptography
+﻿namespace Com.Innoq.SharpestChain.Cryptography
 {
     using System.Security.Cryptography;
     using System.Text;

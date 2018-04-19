@@ -1,4 +1,4 @@
-﻿namespace SharpestChain.Util
+﻿namespace Com.Innoq.SharpestChain.Util
 {
     using System;
 
