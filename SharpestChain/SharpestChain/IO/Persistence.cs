@@ -1,7 +1,7 @@
 ﻿namespace Com.Innoq.SharpestChain.IO
 {
     using System;
-    using System.Linq;
+    using System.Collections.Generic;
 
     using data;
 
@@ -10,16 +10,16 @@
         public static readonly Block GENESIS_BLOCK = 
                 new Block(1, 0, 1917336, new []{new Transaction(new Guid("b3c973e2-db05-4eb5-9668-3e81c7389a6d"), 0, "I am Heribert Innoq")}, "0");
         
-        private Block[] _blocks = {GENESIS_BLOCK};
+        private readonly List<Block> _blocks = new List<Block>{GENESIS_BLOCK};
 
-        public Block[] Get()
+        public List<Block> Get()
         {
-            return _blocks;
+            return new List<Block>(_blocks);
         }
 
         public void Append(Block block)
         {
-            _blocks = _blocks.Concat(new []{block}).ToArray();
+            _blocks.Add(block);
         }
     }
 }

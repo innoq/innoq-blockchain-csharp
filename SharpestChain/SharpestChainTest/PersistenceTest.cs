@@ -2,7 +2,7 @@
 
 namespace Com.Innoq.SharpestChain
 {
-    using System.Linq;
+    using System.Collections.Generic;
 
     using data;
 
@@ -23,12 +23,14 @@ namespace Com.Innoq.SharpestChain
         public void Append_AppendsBlockAtTheEnd()
         {
             var persistence = new Persistence();
-            var old = persistence.Get();
+            var oldChain = persistence.Get();
             var block = new Block(3, 0, 0, new Transaction[0], "");
+            var newChain = new List<Block>(oldChain);
+            newChain.Add(block);
             persistence.Append(block);
             
             var loaded = persistence.Get();
-            Assert.That(loaded, Is.EqualTo(old.Concat(new []{block}).ToArray()));
+            Assert.That(loaded, Is.EquivalentTo(newChain));
         }
     }
 }
