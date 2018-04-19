@@ -8,10 +8,8 @@
     public class SharpestChainController : Controller
     {
         
-        
         // GET /
         [HttpGet]
-        //public IEnumerable<string> Get()
         public object NodeInfo()
         {
             Response.ContentType = "application/json";
