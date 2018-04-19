@@ -32,5 +32,47 @@
         {
             return JsonConvert.DeserializeObject<Block>(json);
         }
+
+        public bool Equals(Block that)
+        {
+            if (ReferenceEquals(this, that))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(this, null))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(that, null))
+            {
+                return false;
+            }
+
+            if (GetType() != that.GetType())
+            {
+                return false;
+            }
+
+            return Index == that.Index && 
+                   string.Equals(PreviousBlockHash, that.PreviousBlockHash) && 
+                   Proof == that.Proof && 
+                   Timestamp == that.Timestamp && 
+                   Transactions.Equals(that.Transactions);
+        }
+
+        public int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = Index.GetHashCode();
+                hashCode = (hashCode * 397) ^ PreviousBlockHash.GetHashCode();
+                hashCode = (hashCode * 397) ^ Proof.GetHashCode();
+                hashCode = (hashCode * 397) ^ Timestamp.GetHashCode();
+                hashCode = (hashCode * 397) ^ Transactions.GetHashCode();
+                return hashCode;
+            }
+        }
     }
 }
