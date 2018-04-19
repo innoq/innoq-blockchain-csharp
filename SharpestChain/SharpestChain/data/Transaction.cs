@@ -1,6 +1,8 @@
 ﻿namespace SharpestChain.Data
 {
     using System;
+    
+    using Newtonsoft.Json;
 
     public class Transaction
     {
@@ -11,8 +13,18 @@
             Payload = pPayload;
         }
 
+        [JsonProperty(Order = 1)]
         public Guid Id { get; }
-        public long Timestamp { get; }
+
+        [JsonProperty(Order = 3)]
         public string Payload { get; }
+
+        [JsonProperty(Order = 2)]
+        public long Timestamp { get; }
+
+        public static Transaction fromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<Transaction>(json);
+        }
     }
 }
