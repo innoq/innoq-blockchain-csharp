@@ -17,9 +17,9 @@ namespace Com.Innoq.SharpestChain.Data
             
             var transaction = Transaction.fromJson(jsonString);
 
-            Assert.That(transaction.id, Is.EqualTo(new Guid("b3c973e2-db05-4eb5-9668-3e81c7389a6d")));
-            Assert.That(transaction.timestamp, Is.EqualTo(0));
-            Assert.That(transaction.payload, Is.EqualTo("I am Heribert Innoq"));
+            Assert.That(transaction.Id, Is.EqualTo(new Guid("b3c973e2-db05-4eb5-9668-3e81c7389a6d")));
+            Assert.That(transaction.Timestamp, Is.EqualTo(0));
+            Assert.That(transaction.Payload, Is.EqualTo("I am Heribert Innoq"));
         }
 
         [Test]

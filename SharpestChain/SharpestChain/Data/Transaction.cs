@@ -6,21 +6,39 @@
 
     public class Transaction
     {
-        public Transaction(Guid pId, long pTimestamp, string pPayload)
-        {
-            id = pId;
-            timestamp = pTimestamp;
-            payload = pPayload;
-        }
-
         [JsonProperty(Order = 1)]
-        public Guid id { get; set; }
+        private Guid id;
 
         [JsonProperty(Order = 3)]
-        public string payload { get; set; }
+        private string payload;
 
         [JsonProperty(Order = 2)]
-        public long timestamp { get; set; }
+        private long timestamp;
+
+        public Transaction(Guid pId, long pTimestamp, string pPayload)
+        {
+            Id = pId;
+            Timestamp = pTimestamp;
+            Payload = pPayload;
+        }
+
+        public Guid Id
+        {
+            get => id;
+            private set => id = value;
+        }
+
+        public string Payload
+        {
+            get => payload;
+            private set => payload = value;
+        }
+
+        public long Timestamp
+        {
+            get => timestamp;
+            private set => timestamp = value;
+        }
 
         public static Transaction fromJson(string json)
         {

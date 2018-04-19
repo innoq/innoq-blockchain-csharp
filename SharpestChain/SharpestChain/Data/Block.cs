@@ -4,31 +4,61 @@
 
     public class Block
     {
-        public Block(long pIndex, long pTimestamp, long pProof, Transaction[] pTransactions, string pPreviousBlockHash)
-        {
-            index = pIndex;
-            timestamp = pTimestamp;
-            proof = pProof;
-            transactions = pTransactions;
-            previousBlockHash = pPreviousBlockHash;
-        }
-
         [JsonProperty(Order = 1)]
-        public long index { get; set; }
-
+        private long index;
+        
         [JsonProperty(Order = 5)]
-        public string previousBlockHash { get; set; }
-
+        private string previousBlockHash;
+        
         [JsonProperty(Order = 3)]
-        public long proof { get; set; }
-
+        private long proof;
+        
         [JsonProperty(Order = 2)]
-        public long timestamp { get; set; }
+        private long timestamp;
 
         [JsonProperty(Order = 4)]
-        public Transaction[] transactions { get; set; }
-        
-        public static Block fromJson(string json)
+        private Transaction[] transactions;
+
+        public Block(long pIndex, long pTimestamp, long pProof, Transaction[] pTransactions, string pPreviousBlockHash)
+        {
+            Index = pIndex;
+            Timestamp = pTimestamp;
+            Proof = pProof;
+            Transactions = pTransactions;
+            PreviousBlockHash = pPreviousBlockHash;
+        }
+
+        public long Index
+        {
+            get => index;
+            private set => index = value;
+        }
+
+        public string PreviousBlockHash
+        {
+            get => previousBlockHash;
+            private set => previousBlockHash = value;
+        }
+
+        public long Proof
+        {
+            get => proof;
+            private set => proof = value;
+        }
+
+        public long Timestamp
+        {
+            get => timestamp;
+            private set => timestamp = value;
+        }
+
+        public Transaction[] Transactions
+        {
+            get => transactions;
+            private set => transactions = value;
+        }
+
+        public static Block FromJson(string json)
         {
             return JsonConvert.DeserializeObject<Block>(json);
         }
@@ -47,22 +77,22 @@
 
         private bool Equals(Block that)
         {
-            return index == that.index && 
-                   string.Equals(previousBlockHash, that.previousBlockHash) && 
-                   proof == that.proof && 
-                   timestamp == that.timestamp && 
-                   transactions.Equals(that.transactions);
+            return Index == that.Index && 
+                   string.Equals(PreviousBlockHash, that.PreviousBlockHash) && 
+                   Proof == that.Proof && 
+                   Timestamp == that.Timestamp && 
+                   Transactions.Equals(that.Transactions);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                int hashCode = index.GetHashCode();
-                hashCode = (hashCode * 397) ^ previousBlockHash.GetHashCode();
-                hashCode = (hashCode * 397) ^ proof.GetHashCode();
-                hashCode = (hashCode * 397) ^ timestamp.GetHashCode();
-                hashCode = (hashCode * 397) ^ transactions.GetHashCode();
+                int hashCode = Index.GetHashCode();
+                hashCode = (hashCode * 397) ^ PreviousBlockHash.GetHashCode();
+                hashCode = (hashCode * 397) ^ Proof.GetHashCode();
+                hashCode = (hashCode * 397) ^ Timestamp.GetHashCode();
+                hashCode = (hashCode * 397) ^ Transactions.GetHashCode();
                 return hashCode;
             }
         }

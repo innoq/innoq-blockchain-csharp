@@ -16,7 +16,7 @@
 
             string previousBlockHash = string.Empty; // SHA256Encoder.EncodeString)
 
-            var newBlock = new Block(previousBlock.index + 1, DateTime.Now.ToUnixTimestamp(), 0, null, previousBlockHash);
+            var newBlock = new Block(previousBlock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, null, previousBlockHash);
 
             // try to find new block
 
