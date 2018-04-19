@@ -1,20 +1,20 @@
-﻿namespace SharpestChain.data
+﻿namespace SharpestChain.Data
 {
-    using System;
-
     public class Block
     {
-        public long Index;
-        public long Timestamp;
-        public long Proof;
-        public Transpaction[] Transactions;
-        public string PreviousBlockHash;
-    }
+        public Block(long pIndex, long pTimestamp, long pProof, Transaction[] pTransactions, string pPreviousBlockHash)
+        {
+            Index = pIndex;
+            Timestamp = pTimestamp;
+            Proof = pProof;
+            Transactions = pTransactions;
+            PreviousBlockHash = pPreviousBlockHash;
+        }
 
-    public class Transpaction
-    {
-        public Guid Id;
-        public long Timestamp;
-        public string Payload;
+        public long Index { get; }
+        public long Timestamp { get; }
+        public long Proof { get; }
+        public Transaction[] Transactions { get; }
+        public string PreviousBlockHash { get; }
     }
 }
