@@ -32,29 +32,14 @@
         {
             return JsonConvert.DeserializeObject<Block>(json);
         }
-
-        public bool Equals(Block that)
+        
+        public override bool Equals (object block) 
         {
-            if (ReferenceEquals(this, that))
-            {
-                return true;
-            }
+            return base.Equals(block) || block is Block && Equals((Block) block);
+        }
 
-            if (ReferenceEquals(this, null))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(that, null))
-            {
-                return false;
-            }
-
-            if (GetType() != that.GetType())
-            {
-                return false;
-            }
-
+        private bool Equals(Block that)
+        {
             return Index == that.Index && 
                    string.Equals(PreviousBlockHash, that.PreviousBlockHash) && 
                    Proof == that.Proof && 
@@ -62,7 +47,7 @@
                    Transactions.Equals(that.Transactions);
         }
 
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             unchecked
             {
