@@ -27,5 +27,10 @@
 
         [JsonProperty(Order = 5)]
         public Transaction[] Transactions { get; }
+        
+        public static Block fromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<Block>(json);
+        }
     }
 }
