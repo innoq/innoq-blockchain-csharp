@@ -4,9 +4,16 @@
 
     public class Persistence
     {
+        private static Block[] blocks;
+        
         public static Block[] Load()
         {
-            return new Block[0];
+            return blocks;
+        }
+
+        public static void Save(Block[] blocks)
+        {
+            Persistence.blocks = blocks;
         }
     }
 }
