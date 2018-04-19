@@ -27,7 +27,12 @@
             }
 
             var hash = encoder.ComputeHash(Encoding.ASCII.GetBytes(givenString));
-            return hash.Aggregate(hashString, (current, x) => current + string.Format("{0:x2}", x));
+            foreach (byte b in hash)
+            {
+                hashString = hashString + string.Format("{0:x2}", b);
+            }
+
+            return hashString;
         }
     }
 }
