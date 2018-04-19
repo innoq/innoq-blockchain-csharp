@@ -1,11 +1,29 @@
 ﻿namespace Com.Innoq.SharpestChain.Controllers
 {
+    using System.IO;
+    using System.Text;
+
+    using IO;
+
     using Microsoft.AspNetCore.Mvc;
+
+    using Newtonsoft.Json;
+    
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Net.Http.Headers;
+    
+    using System.Threading.Tasks;
 
     [Route("/")]
     public class SharpestChainController : Controller
     {
-        
+        private readonly Persistence _persistence;
+        public SharpestChainController()
+        {
+            _persistence = new Persistence();
+        }
+
         // GET /
         [HttpGet]
         public object NodeInfo()
@@ -16,10 +34,13 @@
 
         // GET blocks
         [HttpGet("blocks")]
-        public object Blocks()
+        public async Task<IActionResult> Blocks(ActionContext context)
         {
-            Response.ContentType = "application/json";
-            return new { blocks = new []{"dummy"} };
+            
+            var byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_persistence.Get()));
+            var stream = new MemoryStream(byteArray);
+            
+           return new FileStreamResult(stream, "application/json");
         }
 
         // GET mine
