@@ -35,7 +35,14 @@
         
         public override bool Equals (object block) 
         {
-            return base.Equals(block) || block is Block && Equals((Block) block);
+            var other = block as Block;
+
+            if (other == null) {
+                // it is not a Block, so definitely not equal!
+                return false;
+            }
+
+            return this == other || Equals(other);
         }
 
         private bool Equals(Block that)
