@@ -4,36 +4,37 @@
 
     using Data;
 
+    using Cryptography;
+
+
     using Util;
 
-    internal static class Miner
+    public static class Miner
     {
-
-        internal static Block MineNewBlock(Block previousBlock)
+       
+       
+        public static Block BlockFinder(Block prevblock)
         {
+            string hash = SHA256Encoder.EncodeString(prevblock.toJson());
+            var candidate = new Block(prevblock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, new Transaction[]{},hash);
 
-            // hash previous Block
+            while (true)
+            {
+                string candidateHash = SHA256Encoder.EncodeString(candidate.toJson());
 
-            string previousBlockHash = string.Empty; // SHA256Encoder.EncodeString)
-
-            var newBlock = new Block(previousBlock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, null, previousBlockHash);
-
-            // try to find new block
-
-
-            // get unix ts
-            // int proof = ProofFinder.FindNewProof(previousBlockHash, newBlock);
-
-
-
-            // return object
-
-
-
-            return null;
+                if (candidateHash.StartsWith("0000", StringComparison.Ordinal))
+                {
+                    break;   
+                }
+               
+                
+                candidate.Proof = candidate.Proof + 1;
+                
+               
+            }
+            
+            return candidate;
         }
 
-
     }
-
 }

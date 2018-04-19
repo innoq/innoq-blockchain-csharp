@@ -16,14 +16,14 @@
           }
         },
         {
-          "name": "Blocks",
+          "name": "Mine",
           "request": {
-            "url": "http://localhost:5000/blocks",
+            "url": "http://localhost:5000/mine",
             "method": "GET"
           }
         },
         {
-          "name": "Mine",
+          "name": "Blocks",
           "request": {
             "url": "http://localhost:5000/blocks",
             "method": "GET"

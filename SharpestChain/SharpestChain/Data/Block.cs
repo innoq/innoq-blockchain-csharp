@@ -43,8 +43,9 @@
         public long Proof
         {
             get => proof;
-            private set => proof = value;
+            set => proof = value;
         }
+
 
         public long Timestamp
         {
