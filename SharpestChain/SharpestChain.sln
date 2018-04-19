@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpestChain", "SharpestChain\SharpestChain.csproj", "{CC1C3DAD-95D3-41D2-B7C5-89E20FE5FC14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpestChainTest", "SharpestChainTest\SharpestChainTest.csproj", "{5F01EBAC-A539-45CE-B453-C6857BD8E17D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{CC1C3DAD-95D3-41D2-B7C5-89E20FE5FC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC1C3DAD-95D3-41D2-B7C5-89E20FE5FC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC1C3DAD-95D3-41D2-B7C5-89E20FE5FC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F01EBAC-A539-45CE-B453-C6857BD8E17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F01EBAC-A539-45CE-B453-C6857BD8E17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F01EBAC-A539-45CE-B453-C6857BD8E17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F01EBAC-A539-45CE-B453-C6857BD8E17D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
