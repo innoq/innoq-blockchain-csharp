@@ -1,4 +1,4 @@
-﻿namespace SharpestChain.Data
+﻿namespace Com.Innoq.SharpestChain.data
 {
     using Newtonsoft.Json;
 

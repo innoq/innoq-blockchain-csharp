@@ -1,7 +1,7 @@
-﻿namespace SharpestChain.Blocks
+﻿namespace Com.Innoq.SharpestChain.Blocks
 {
     public class ProofFinder
     {
-        
+
     }
 }

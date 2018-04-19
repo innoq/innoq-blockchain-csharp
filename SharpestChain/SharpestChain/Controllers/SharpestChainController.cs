@@ -1,7 +1,5 @@
-﻿namespace SharpestChain.Controllers
+﻿namespace Com.Innoq.SharpestChain.Controllers
 {
-    using System.Collections.Generic;
-
     using Microsoft.AspNetCore.Mvc;
 
     [Route("/")]

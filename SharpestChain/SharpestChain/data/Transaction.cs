@@ -1,7 +1,7 @@
-﻿namespace SharpestChain.Data
+﻿namespace Com.Innoq.SharpestChain.data
 {
     using System;
-    
+
     using Newtonsoft.Json;
 
     public class Transaction

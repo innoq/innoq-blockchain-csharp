@@ -1,9 +1,10 @@
-﻿using NUnit.Framework;
-
-namespace SharpestChainTest
+﻿namespace Com.Innoq.SharpestChain
 {
-    using SharpestChain.Data;
-    using SharpestChain.IO;
+    using data;
+
+    using IO;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class PersistenceTest
