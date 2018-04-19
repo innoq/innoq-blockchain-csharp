@@ -1,9 +1,24 @@
-﻿namespace Com.Innoq.SharpestChain.data
+﻿namespace Com.Innoq.SharpestChain.Data
 {
     using Newtonsoft.Json;
 
     public class Block
     {
+        [JsonProperty(Order = 1)]
+        private long index;
+        
+        [JsonProperty(Order = 5)]
+        private string previousBlockHash;
+        
+        [JsonProperty(Order = 3)]
+        private long proof;
+        
+        [JsonProperty(Order = 2)]
+        private long timestamp;
+
+        [JsonProperty(Order = 4)]
+        private Transaction[] transactions;
+
         public Block(long pIndex, long pTimestamp, long pProof, Transaction[] pTransactions, string pPreviousBlockHash)
         {
             Index = pIndex;
@@ -13,22 +28,37 @@
             PreviousBlockHash = pPreviousBlockHash;
         }
 
-        [JsonProperty(Order = 1)]
-        public long Index { get; }
+        public long Index
+        {
+            get => index;
+            private set => index = value;
+        }
 
-        [JsonProperty(Order = 5)]
-        public string PreviousBlockHash { get; }
+        public string PreviousBlockHash
+        {
+            get => previousBlockHash;
+            private set => previousBlockHash = value;
+        }
 
-        [JsonProperty(Order = 3)]
-        public long Proof { get; }
+        public long Proof
+        {
+            get => proof;
+            private set => proof = value;
+        }
 
-        [JsonProperty(Order = 2)]
-        public long Timestamp { get; }
+        public long Timestamp
+        {
+            get => timestamp;
+            private set => timestamp = value;
+        }
 
-        [JsonProperty(Order = 4)]
-        public Transaction[] Transactions { get; }
-        
-        public static Block fromJson(string json)
+        public Transaction[] Transactions
+        {
+            get => transactions;
+            private set => transactions = value;
+        }
+
+        public static Block FromJson(string json)
         {
             return JsonConvert.DeserializeObject<Block>(json);
         }
