@@ -1,6 +1,8 @@
 ﻿namespace Com.Innoq.SharpestChain.Controllers
 {
+    using System;
     using System.IO;
+    using System.Linq;
     using System.Text;
 
     using IO;
@@ -15,10 +17,14 @@
     
     using System.Threading.Tasks;
 
+    using data;
+
     [Route("/")]
     public class SharpestChainController : Controller
     {
         private readonly Persistence _persistence;
+
+        private readonly string _nodeId = Guid.NewGuid().ToString();
         public SharpestChainController()
         {
             _persistence = new Persistence();
@@ -28,17 +34,22 @@
         [HttpGet]
         public object NodeInfo()
         {
-            Response.ContentType = "application/json";
-            return new {nodeId = "bcfeb8c5-c9a6-4731-9a17-e0fedd7aa073", currentBlockHeight = 69};
+            var nodeInfo = new NodeInfo();
+            nodeInfo.NodeId = _nodeId;
+            nodeInfo.CurrentBlockHeight = _persistence.Get().Last().Index;
+            var byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(nodeInfo));
+            var stream = new MemoryStream(byteArray);
+            
+            return new FileStreamResult(stream, "application/json");
         }
 
         // GET blocks
         [HttpGet("blocks")]
-        public async Task<IActionResult> Blocks(ActionContext context)
+        public async Task<IActionResult> Blocks()
         {
             
-            var byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_persistence.Get()));
-            var stream = new MemoryStream(byteArray);
+           var byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_persistence.Get()));
+           var stream = new MemoryStream(byteArray);
             
            return new FileStreamResult(stream, "application/json");
         }
