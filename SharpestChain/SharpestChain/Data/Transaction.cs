@@ -1,4 +1,4 @@
-﻿namespace Com.Innoq.SharpestChain.data
+﻿namespace Com.Innoq.SharpestChain.Data
 {
     using System;
 
@@ -8,19 +8,19 @@
     {
         public Transaction(Guid pId, long pTimestamp, string pPayload)
         {
-            Id = pId;
-            Timestamp = pTimestamp;
-            Payload = pPayload;
+            id = pId;
+            timestamp = pTimestamp;
+            payload = pPayload;
         }
 
         [JsonProperty(Order = 1)]
-        public Guid Id { get; }
+        public Guid id { get; set; }
 
         [JsonProperty(Order = 3)]
-        public string Payload { get; }
+        public string payload { get; set; }
 
         [JsonProperty(Order = 2)]
-        public long Timestamp { get; }
+        public long timestamp { get; set; }
 
         public static Transaction fromJson(string json)
         {
