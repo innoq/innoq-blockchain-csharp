@@ -1,0 +1,35 @@
+{
+  "info": {
+    "name": "sharpestChain.paw",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "version": "v0.0.0"
+  },
+  "item": [
+    {
+      "name": "SharpestController",
+      "item": [
+        {
+          "name": "NodeInfo",
+          "request": {
+            "url": "http://localhost:5000/",
+            "method": "GET"
+          }
+        },
+        {
+          "name": "Blocks",
+          "request": {
+            "url": "http://localhost:5000/blocks",
+            "method": "GET"
+          }
+        },
+        {
+          "name": "Mine",
+          "request": {
+            "url": "http://localhost:5000/blocks",
+            "method": "GET"
+          }
+        }
+      ]
+    }
+  ]
+}
