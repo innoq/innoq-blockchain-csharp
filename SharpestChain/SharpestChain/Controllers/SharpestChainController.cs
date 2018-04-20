@@ -74,12 +74,7 @@
         [HttpGet("mine")]
         public IActionResult Mine()
         {
-            var blocks = _persistenceActorRef.GetActorRef()
-                                             .Ask<ReadOnlyCollection<Block>>(
-                                                     new Persistence.GetBlocks(),
-                                                     TimeSpan.FromSeconds(5)).Result;
-
-            var block = Miner.FindNewBlock(blocks.Last());
+            var block = Miner.FindNewBlock(_persistenceActorRef);
 
             _persistenceActorRef.GetActorRef().Tell(block);
 

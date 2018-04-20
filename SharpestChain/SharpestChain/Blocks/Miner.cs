@@ -1,20 +1,39 @@
 ﻿namespace Com.Innoq.SharpestChain.Blocks
 {
     using System;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+
+    using Akka.Actor;
 
     using Cryptography;
 
     using Data;
 
+    using Eventing;
+
+    using IO;
+
     using Util;
 
     public static class Miner
     {
-        public static Block FindNewBlock(Block prevblock)
+        public static Block FindNewBlock(IPersistenceActorRef persistenceActorRef)
         {
-            string hash = SHA256Encoder.EncodeString(prevblock.toJson());
-            var candidate = new Block(prevblock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, new Transaction[] { },
-                                      hash);
+            
+            var blocks = persistenceActorRef.GetActorRef()
+                                             .Ask<ReadOnlyCollection<Block>>(
+                                                     new Persistence.GetBlocks(),
+                                                     TimeSpan.FromSeconds(5)).Result;
+            var previousBlock = blocks.Last();
+            string hash = SHA256Encoder.EncodeString(previousBlock.toJson());
+            
+            var transactions = persistenceActorRef.GetActorRef()
+                                                  .Ask<ReadOnlyCollection<Transaction>>(
+                                                          new Persistence.GetUnconfirmedTransactions(),
+                                                          TimeSpan.FromSeconds(5)).Result
+                                                  .Take(5);
+            var candidate = new Block(previousBlock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, transactions, hash);
 
             while (true)
             {

@@ -38,6 +38,7 @@
             {
                 case Block block:
                     _blocks.Add(block);
+                    _unconfirmedTransactions.RemoveAll(transaction => block.Transactions.Contains(transaction));
                     _connectionHolder.Tell(block);
                     break;
                 case GetBlocks _:
@@ -45,6 +46,9 @@
                     break;
                 case GetTransactions _:
                     Sender.Tell(AllTransactions().AsReadOnly());
+                    break;
+                case GetUnconfirmedTransactions _:
+                    Sender.Tell(_unconfirmedTransactions.AsReadOnly());
                     break;
                 case GetTransaction msg:
                     Sender.Tell(AllTransactions().Find(t => t.Id == new Guid(msg.Id)));

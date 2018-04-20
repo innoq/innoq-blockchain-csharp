@@ -10,6 +10,10 @@
         {
         }
 
+        public sealed class GetUnconfirmedTransactions
+        {
+        }
+
         public sealed class GetTransaction
         {
             public GetTransaction(string id)
