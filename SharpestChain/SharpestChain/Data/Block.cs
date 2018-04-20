@@ -1,6 +1,7 @@
 ﻿namespace Com.Innoq.SharpestChain.Data
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     using Newtonsoft.Json;
 
@@ -12,24 +13,28 @@
             Index = pIndex;
             Timestamp = pTimestamp;
             Proof = pProof;
-            Transactions.AddRange(pTransactions);
+            if (pTransactions != null && pTransactions.Any())
+            {
+                Transactions.AddRange(pTransactions);
+            }
+
             PreviousBlockHash = pPreviousBlockHash;
         }
 
         [JsonProperty("index", Order = 1)]
-        public long Index { get; }
+        public long Index { get; set; }
 
         [JsonProperty("previousBlockHash", Order = 5)]
-        public string PreviousBlockHash { get; }
+        public string PreviousBlockHash { get; set; }
 
-        [JsonProperty("proof",Order = 3)]
-        public long Proof { get; private set; }
+        [JsonProperty("proof", Order = 3)]
+        public long Proof { get; set; }
 
         [JsonProperty("timestamp", Order = 2)]
-        public long Timestamp { get; }
+        public long Timestamp { get; set; }
 
         [JsonProperty("transactions", Order = 4)]
-        public List<Transaction> Transactions { get; } = new List<Transaction>();
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
         public static Block FromJson(string json)
         {
