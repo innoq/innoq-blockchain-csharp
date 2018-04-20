@@ -1,74 +1,57 @@
 ﻿namespace Com.Innoq.SharpestChain.Data
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using Newtonsoft.Json;
 
     public class Block
     {
-        [JsonProperty(Order = 1)]
-        private long index;
-        
-        [JsonProperty(Order = 5)]
-        private string previousBlockHash;
-        
-        [JsonProperty(Order = 3)]
-        private long proof;
-        
-        [JsonProperty(Order = 2)]
-        private long timestamp;
-
-        [JsonProperty(Order = 4)]
-        private Transaction[] transactions;
-
-        public Block(long pIndex, long pTimestamp, long pProof, Transaction[] pTransactions, string pPreviousBlockHash)
+        public Block(long pIndex, long pTimestamp, long pProof, IEnumerable<Transaction> pTransactions,
+                     string pPreviousBlockHash)
         {
             Index = pIndex;
             Timestamp = pTimestamp;
             Proof = pProof;
-            Transactions = pTransactions;
+            if (pTransactions != null && pTransactions.Any())
+            {
+                Transactions.AddRange(pTransactions);
+            }
+
             PreviousBlockHash = pPreviousBlockHash;
         }
 
-        public long Index
-        {
-            get => index;
-            private set => index = value;
-        }
+        [JsonProperty("index", Order = 1)]
+        public long Index { get; set; }
 
-        public string PreviousBlockHash
-        {
-            get => previousBlockHash;
-            private set => previousBlockHash = value;
-        }
+        [JsonProperty("previousBlockHash", Order = 5)]
+        public string PreviousBlockHash { get; set; }
 
-        public long Proof
-        {
-            get => proof;
-            set => proof = value;
-        }
+        [JsonProperty("proof", Order = 3)]
+        public long Proof { get; set; }
 
+        [JsonProperty("timestamp", Order = 2)]
+        public long Timestamp { get; set; }
 
-        public long Timestamp
-        {
-            get => timestamp;
-            private set => timestamp = value;
-        }
-
-        public Transaction[] Transactions
-        {
-            get => transactions;
-            private set => transactions = value;
-        }
+        [JsonProperty("transactions", Order = 4)]
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
         public static Block FromJson(string json)
         {
             return JsonConvert.DeserializeObject<Block>(json);
         }
-        
-        public override bool Equals (object block) 
+
+        public void IncrementProof()
+        {
+            Proof += 1;
+        }
+
+        public override bool Equals(object block)
         {
             var other = block as Block;
 
-            if (other == null) {
+            if (other == null)
+            {
                 // it is not a Block, so definitely not equal!
                 return false;
             }
@@ -78,10 +61,10 @@
 
         private bool Equals(Block that)
         {
-            return Index == that.Index && 
-                   string.Equals(PreviousBlockHash, that.PreviousBlockHash) && 
-                   Proof == that.Proof && 
-                   Timestamp == that.Timestamp && 
+            return Index == that.Index &&
+                   string.Equals(PreviousBlockHash, that.PreviousBlockHash) &&
+                   Proof == that.Proof &&
+                   Timestamp == that.Timestamp &&
                    Transactions.Equals(that.Transactions);
         }
 
