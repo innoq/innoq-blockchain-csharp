@@ -2,7 +2,7 @@
 {
     using Akka.Actor;
 
-    public interface ISharpestChainPersistenceActorRef
+    public interface IPersistenceActorRef
     {
         IActorRef GetActorRef();
     }

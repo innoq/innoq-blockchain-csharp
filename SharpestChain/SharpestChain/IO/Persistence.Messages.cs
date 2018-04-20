@@ -4,7 +4,7 @@
 
     using Data;
 
-    public partial class SharpestChainPersisrtence_Messages
+    public partial class Persistence_Messages
     {
         
         public sealed class GetBlocks

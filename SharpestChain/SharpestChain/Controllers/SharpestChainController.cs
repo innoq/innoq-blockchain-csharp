@@ -28,10 +28,10 @@
 
         private readonly IEventConnectionHolderActorRef _connectionHolderActorRef;
 
-        private readonly ISharpestChainPersistenceActorRef _persistenceActorRef;
+        private readonly IPersistenceActorRef _persistenceActorRef;
 
         public SharpestChainController(IEventConnectionHolderActorRef pConnectionHolderActorRef,
-                                       ISharpestChainPersistenceActorRef persistenceActorRef)
+                                       IPersistenceActorRef persistenceActorRef)
         {
             _connectionHolderActorRef = pConnectionHolderActorRef;
             _persistenceActorRef = persistenceActorRef;
@@ -49,7 +49,7 @@
                                            _persistenceActorRef
                                                    .GetActorRef()
                                                    .Ask<ReadOnlyCollection<Block>>(
-                                                           new SharpestChainPersisrtence_Messages.GetBlocks(),
+                                                           new Persistence_Messages.GetBlocks(),
                                                            TimeSpan.FromSeconds(5)).Result.Last().Index
                            };
 
@@ -62,7 +62,7 @@
         {
             var blocks = _persistenceActorRef.GetActorRef()
                                              .Ask<ReadOnlyCollection<Block>>(
-                                                     new SharpestChainPersisrtence_Messages.GetBlocks(),
+                                                     new Persistence_Messages.GetBlocks(),
                                                      TimeSpan.FromSeconds(5)).Result;
 
             return Content(JsonConvert.SerializeObject(blocks), "application/json", Encoding.UTF8);
@@ -74,7 +74,7 @@
         {
             var blocks = _persistenceActorRef.GetActorRef()
                                              .Ask<ReadOnlyCollection<Block>>(
-                                                     new SharpestChainPersisrtence_Messages.GetBlocks(),
+                                                     new Persistence_Messages.GetBlocks(),
                                                      TimeSpan.FromSeconds(5)).Result;
 
             var block = Miner.FindNewBlock(blocks.Last());

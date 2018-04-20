@@ -34,10 +34,10 @@
             var system = ActorSystem.Create("reservieren", appConfig);
             
             var eventConnectionHolder = system.ActorOf(ConnectionHolder.props(), "event-connection-holder");
-            var persistence = system.ActorOf(SharpestChainPersistence.props(eventConnectionHolder), "persistence");
+            var persistence = system.ActorOf(Persistence.props(eventConnectionHolder), "persistence");
             
             services.AddTransient(typeof(IEventConnectionHolderActorRef), pServiceProvider => new EventConnectionHolderActorRefActorRef(eventConnectionHolder));
-            services.AddTransient(typeof(ISharpestChainPersistenceActorRef),  pServiceProvider => new SharpestChainPersistenceActorRef(persistence));
+            services.AddTransient(typeof(IPersistenceActorRef),  pServiceProvider => new PersistenceActorRef(persistence));
             services.AddMvc();
         }
 

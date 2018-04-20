@@ -24,9 +24,9 @@
 
         private readonly IEventConnectionHolderActorRef _connectionHolderActorRef;
 
-        private readonly ISharpestChainPersistenceActorRef _persistence;
+        private readonly IPersistenceActorRef _persistence;
 
-        public PushActorStreamResult(IEventConnectionHolderActorRef pConnectionHolderActorRef, string pContentType, ISharpestChainPersistenceActorRef pPersistence)
+        public PushActorStreamResult(IEventConnectionHolderActorRef pConnectionHolderActorRef, string pContentType, IPersistenceActorRef pPersistence)
         {
             _contentType = pContentType;
             _connectionHolderActorRef = pConnectionHolderActorRef;
