@@ -1,13 +1,8 @@
 ﻿namespace Com.Innoq.SharpestChain.Eventing
 {
-    using System;
-    using System.Collections.ObjectModel;
-
     using Akka.Actor;
 
     using Data;
-
-    using IO;
 
     /// <inheritdoc />
     /// <summary>
@@ -31,6 +26,12 @@
                     foreach (var child in Context.GetChildren())
                     {
                         child.Tell(block);
+                    }
+                    break;
+                case Transaction transaction:
+                    foreach (var child in Context.GetChildren())
+                    {
+                        child.Tell(transaction);
                     }
                     break;
             }
