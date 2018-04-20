@@ -1,35 +1,165 @@
 {
-  "info": {
-    "name": "sharpestChain.paw",
-    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-    "version": "v0.0.0"
-  },
-  "item": [
-    {
-      "name": "SharpestController",
-      "item": [
-        {
-          "name": "NodeInfo",
-          "request": {
-            "url": "http://localhost:5000/",
-            "method": "GET"
-          }
-        },
-        {
-          "name": "Mine",
-          "request": {
-            "url": "http://localhost:5000/mine",
-            "method": "GET"
-          }
-        },
-        {
-          "name": "Blocks",
-          "request": {
-            "url": "http://localhost:5000/blocks",
-            "method": "GET"
-          }
-        }
-      ]
-    }
-  ]
+	"info": {
+		"_postman_id": "cbebd099-f6a0-404f-8694-a8ed5e0b4dae",
+		"name": "sharpestChain.paw",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SharpestController",
+			"description": null,
+			"item": [
+				{
+					"name": "NodeInfo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/mine",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mine"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Blocks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:5000/blocks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"blocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transactions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Transaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"payload\": \"Arnulf Beckenbauer\"}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/transactions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get transaction by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "aef08746-5ab2-4b56-8b94-3d0d3be1d659",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:5000/transactions/b3c973e2-db05-4eb5-9668-3e81c7389a6d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"transactions",
+								"b3c973e2-db05-4eb5-9668-3e81c7389a6d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
 }
