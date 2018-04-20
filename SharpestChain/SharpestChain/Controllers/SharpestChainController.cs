@@ -19,8 +19,6 @@
 
     using Newtonsoft.Json;
 
-    using reservieren.Controllers;
-
     using Util;
 
     [Route("/")]
