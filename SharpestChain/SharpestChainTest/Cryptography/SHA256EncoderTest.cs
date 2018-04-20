@@ -5,7 +5,6 @@
     [TestFixture]
     public class SHA256EncoderTest
     {
-
         [TestCase(null, "")]
         [TestCase("", "")]
         [TestCase("I am Peter Pan", "10a09abd7f9234503a9941139dcdbd1bc4b1705beb5c3702d4b08142beb0ac6a")]

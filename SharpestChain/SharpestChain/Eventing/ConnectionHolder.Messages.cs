@@ -5,8 +5,6 @@
 
     using Akka.Actor;
 
-    using IO;
-
     public partial class ConnectionHolder
     {
         public sealed class NewConnection

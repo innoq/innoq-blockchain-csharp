@@ -3,8 +3,6 @@
     using System.IO;
 
     using Akka.Actor;
-    
-    using Akka.Streams;
 
     using Eventing;
 
@@ -14,8 +12,6 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
-    using ConnectionHolder = Eventing.ConnectionHolder;
 
     public class Startup
     {
@@ -29,15 +25,16 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             string appConfig = File.ReadAllText("app.config");
             var system = ActorSystem.Create("reservieren", appConfig);
-            
+
             var eventConnectionHolder = system.ActorOf(ConnectionHolder.props(), "event-connection-holder");
             var persistence = system.ActorOf(Persistence.props(eventConnectionHolder), "persistence");
-            
-            services.AddTransient(typeof(IEventConnectionHolderActorRef), pServiceProvider => new EventConnectionHolderActorRefActorRef(eventConnectionHolder));
-            services.AddTransient(typeof(IPersistenceActorRef),  pServiceProvider => new PersistenceActorRef(persistence));
+
+            services.AddTransient(typeof(IEventConnectionHolderActorRef),
+                                  pServiceProvider => new EventConnectionHolderActorRefActorRef(eventConnectionHolder));
+            services.AddTransient(typeof(IPersistenceActorRef),
+                                  pServiceProvider => new PersistenceActorRef(persistence));
             services.AddMvc();
         }
 

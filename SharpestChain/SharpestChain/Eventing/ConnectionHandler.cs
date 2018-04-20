@@ -7,7 +7,6 @@
 
     using Akka.Actor;
     using Akka.Event;
-    using Akka.Streams;
 
     using Data;
 
@@ -27,7 +26,6 @@
 
         private readonly CancellationToken _cancellationToken;
 
-     
         private readonly StreamWriter _writer;
 
         private readonly IActorRef _persistence;
@@ -42,7 +40,6 @@
                       {
                               NewLine = "\n"
                       };
-            
         }
 
         protected override void PreStart()
@@ -78,21 +75,23 @@
                         _writer.WriteLine();
                         _writer.Flush();
                     }
+
                     break;
 
                 case Replay _:
                     if (!ConnectionIsClosed())
                     {
-                        var currentBlocks = _persistence.Ask<ReadOnlyCollection<Block>>(new Persistence.GetBlocks(), TimeSpan.FromSeconds(5)).Result;
+                        var currentBlocks = _persistence
+                                            .Ask<ReadOnlyCollection<Block>>(
+                                                    new Persistence.GetBlocks(), TimeSpan.FromSeconds(5)).Result;
                         foreach (var block in currentBlocks)
                         {
                             _writer.WriteLine($"id:{block.Index}");
                             _writer.WriteLine("event: new_block");
                             _writer.WriteLine($"data: {JsonConvert.SerializeObject(block)}");
                             _writer.WriteLine();
-                            _writer.Flush();                            
+                            _writer.Flush();
                         }
-
                     }
 
                     break;

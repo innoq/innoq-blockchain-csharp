@@ -10,8 +10,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Net.Http.Headers;
 
-    using ConnectionHolder = Com.Innoq.SharpestChain.Eventing.ConnectionHolder;
-
     /// <inheritdoc />
     /// <summary>
     /// Provides the ActionResult for the controller.
@@ -26,12 +24,12 @@
 
         private readonly IPersistenceActorRef _persistence;
 
-        public PushActorStreamResult(IEventConnectionHolderActorRef pConnectionHolderActorRef, string pContentType, IPersistenceActorRef pPersistence)
+        public PushActorStreamResult(IEventConnectionHolderActorRef pConnectionHolderActorRef, string pContentType,
+                                     IPersistenceActorRef pPersistence)
         {
             _contentType = pContentType;
             _connectionHolderActorRef = pConnectionHolderActorRef;
             _persistence = pPersistence;
-
         }
 
         public Task ExecuteResultAsync(ActionContext pContext)
@@ -41,7 +39,8 @@
 
             return _connectionHolderActorRef.GetActorRef()
                                             .Ask(new ConnectionHolder.NewConnection(
-                                                         stream, pContext.HttpContext.RequestAborted, _persistence.GetActorRef()));
+                                                         stream, pContext.HttpContext.RequestAborted,
+                                                         _persistence.GetActorRef()));
         }
     }
 }

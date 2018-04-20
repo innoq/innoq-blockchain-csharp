@@ -88,15 +88,17 @@
 
         [HttpGet("events")]
         public IActionResult Events()
-            => new PushActorStreamResult(_connectionHolderActorRef, "text/event-stream", _persistenceActorRef);
+        {
+            return new PushActorStreamResult(_connectionHolderActorRef, "text/event-stream", _persistenceActorRef);
+        }
 
         [HttpGet("transactions")]
         public IActionResult GetTransactions()
         {
             var transactions = _persistenceActorRef.GetActorRef()
-                                             .Ask<ReadOnlyCollection<Transaction>>(
-                                                     new Persistence.GetTransactions(),
-                                                     TimeSpan.FromSeconds(5)).Result;
+                                                   .Ask<ReadOnlyCollection<Transaction>>(
+                                                           new Persistence.GetTransactions(),
+                                                           TimeSpan.FromSeconds(5)).Result;
 
             return Content(JsonConvert.SerializeObject(transactions), "application/json", Encoding.UTF8);
         }
@@ -105,13 +107,13 @@
         public IActionResult GetTransaction(string id)
         {
             var transaction = _persistenceActorRef.GetActorRef()
-                                                   .Ask<Transaction>(
-                                                           new Persistence.GetTransaction(id),
-                                                           TimeSpan.FromSeconds(5)).Result;
+                                                  .Ask<Transaction>(
+                                                          new Persistence.GetTransaction(id),
+                                                          TimeSpan.FromSeconds(5)).Result;
 
             return Content(JsonConvert.SerializeObject(transaction), "application/json", Encoding.UTF8);
         }
-        
+
         [HttpPost("transactions")]
         public IActionResult AddTransaction([FromBody] TransactionDto transactionDto)
         {

@@ -19,7 +19,7 @@
         {
             switch (pMessage)
             {
-                case NewConnection c:   
+                case NewConnection c:
                     Context.ActorOf(ConnectionHandler.props(c.Stream, c.CancellationToken, c.PersistenceActorRef));
                     break;
                 case Block block:
@@ -27,12 +27,14 @@
                     {
                         child.Tell(block);
                     }
+
                     break;
                 case Transaction transaction:
                     foreach (var child in Context.GetChildren())
                     {
                         child.Tell(transaction);
                     }
+
                     break;
             }
         }

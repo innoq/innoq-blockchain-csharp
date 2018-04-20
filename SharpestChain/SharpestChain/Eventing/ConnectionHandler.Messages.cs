@@ -13,6 +13,5 @@
         private sealed class Replay
         {
         }
-        
     }
 }

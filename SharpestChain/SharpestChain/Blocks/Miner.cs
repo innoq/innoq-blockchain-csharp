@@ -2,9 +2,9 @@
 {
     using System;
 
-    using Data;
-
     using Cryptography;
+
+    using Data;
 
     using Util;
 

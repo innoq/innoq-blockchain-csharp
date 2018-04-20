@@ -2,7 +2,6 @@
 {
     public partial class Persistence
     {
-        
         public sealed class GetBlocks
         {
         }
@@ -10,7 +9,7 @@
         public sealed class GetTransactions
         {
         }
-        
+
         public sealed class GetTransaction
         {
             public GetTransaction(string id)
