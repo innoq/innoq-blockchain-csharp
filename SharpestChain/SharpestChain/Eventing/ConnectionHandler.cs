@@ -68,7 +68,18 @@
                     }
 
                     break;
-                
+
+                case Transaction transaction:
+                    if (!ConnectionIsClosed())
+                    {
+                        _writer.WriteLine($"id:{transaction.Id}");
+                        _writer.WriteLine("event: new_transaction");
+                        _writer.WriteLine($"data: {JsonConvert.SerializeObject(transaction)}");
+                        _writer.WriteLine();
+                        _writer.Flush();
+                    }
+                    break;
+
                 case Replay _:
                     if (!ConnectionIsClosed())
                     {

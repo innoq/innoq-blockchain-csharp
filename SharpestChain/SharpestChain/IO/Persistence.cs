@@ -7,8 +7,6 @@
 
     using Data;
 
-    using Eventing;
-
     public partial class Persistence : UntypedActor
     {
         public static Props props(IActorRef connectionHolderActorRef) => Props.Create(() => new Persistence(connectionHolderActorRef));
@@ -18,11 +16,14 @@
         
         private readonly List<Block> _blocks;
 
+        private readonly List<Transaction> _unconfirmedTransactions;
+
         private  readonly IActorRef _connectionHolder;
         public Persistence(IActorRef connectionHolderActorRef)
         {
             _connectionHolder = connectionHolderActorRef;
             _blocks = new List<Block>{GENESIS_BLOCK};
+            _unconfirmedTransactions = new List<Transaction>();
         }
 
         protected override void OnReceive(object message)
@@ -36,9 +37,28 @@
                 case GetBlocks _:
                     Sender.Tell(_blocks.AsReadOnly());
                     break;
-                    
+                case GetTransactions _:
+                    Sender.Tell(AllTransactions().AsReadOnly());
+                    break;
+                case GetTransaction msg:
+                    Sender.Tell(AllTransactions().Find(t => t.Id == new Guid(msg.Id)));
+                    break;
+                case Transaction transaction:
+                    _unconfirmedTransactions.Add(transaction);
+                    _connectionHolder.Tell(transaction);
+                    break;
             }
+        }
 
+        private List<Transaction> AllTransactions()
+        {
+            var transactions = new List<Transaction>();
+            foreach (var block in _blocks)
+            {
+                transactions.AddRange(block.Transactions);
+            }
+            transactions.AddRange(_unconfirmedTransactions);
+            return transactions;
         }
     }
 }

@@ -21,6 +21,8 @@
 
     using reservieren.Controllers;
 
+    using Util;
+
     [Route("/")]
     public class SharpestChainController : Controller
     {
@@ -87,5 +89,35 @@
         [HttpGet("events")]
         public IActionResult Events()
             => new PushActorStreamResult(_connectionHolderActorRef, "text/event-stream", _persistenceActorRef);
+
+        [HttpGet("transactions")]
+        public IActionResult GetTransactions()
+        {
+            var transactions = _persistenceActorRef.GetActorRef()
+                                             .Ask<ReadOnlyCollection<Transaction>>(
+                                                     new Persistence.GetTransactions(),
+                                                     TimeSpan.FromSeconds(5)).Result;
+
+            return Content(JsonConvert.SerializeObject(transactions), "application/json", Encoding.UTF8);
+        }
+
+        [HttpGet("transactions/{id}")]
+        public IActionResult GetTransaction(string id)
+        {
+            var transaction = _persistenceActorRef.GetActorRef()
+                                                   .Ask<Transaction>(
+                                                           new Persistence.GetTransaction(id),
+                                                           TimeSpan.FromSeconds(5)).Result;
+
+            return Content(JsonConvert.SerializeObject(transaction), "application/json", Encoding.UTF8);
+        }
+        
+        [HttpPost("transactions")]
+        public IActionResult AddTransaction([FromBody] TransactionDto transactionDto)
+        {
+            var transaction = new Transaction(Guid.NewGuid(), DateTime.Now.ToUnixTimestamp(), transactionDto.payload);
+            _persistenceActorRef.GetActorRef().Tell(transaction);
+            return Content(JsonConvert.SerializeObject(transaction), "application/json", Encoding.UTF8);
+        }
     }
 }
