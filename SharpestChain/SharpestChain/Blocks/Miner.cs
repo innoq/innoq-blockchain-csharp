@@ -26,11 +26,8 @@
                 {
                     break;   
                 }
-               
-                
-                candidate.Proof = candidate.Proof + 1;
-                
-               
+
+                candidate.IncrementProof();
             }
             
             return candidate;

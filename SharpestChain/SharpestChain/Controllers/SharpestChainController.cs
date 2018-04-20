@@ -26,7 +26,7 @@
             var nodeInfo = new NodeInfo
                            {
                                    NodeId = _nodeId,
-                                   CurrentBlockHeight = Persistence.Get().Last().Index
+                                   CurrentBlockHeight = Persistence.Get().Count
                            };
 
             return Content(JsonConvert.SerializeObject(nodeInfo), "application/json", Encoding.UTF8);
