@@ -6,7 +6,6 @@
     using System.Threading;
 
     using Akka.Actor;
-    using Akka.Event;
 
     using Data;
 
@@ -29,8 +28,6 @@
         private readonly StreamWriter _writer;
 
         private readonly IActorRef _persistence;
-
-        private ILoggingAdapter _log = Context.GetLogger();
 
         public ConnectionHandler(Stream pStream, CancellationToken pCancellationToken, IActorRef pPersitence)
         {

@@ -18,14 +18,13 @@
     {
         public static Block FindNewBlock(IPersistenceActorRef persistenceActorRef)
         {
-            
             var blocks = persistenceActorRef.GetActorRef()
-                                             .Ask<ReadOnlyCollection<Block>>(
-                                                     new Persistence.GetBlocks(),
-                                                     TimeSpan.FromSeconds(5)).Result;
+                                            .Ask<ReadOnlyCollection<Block>>(
+                                                    new Persistence.GetBlocks(),
+                                                    TimeSpan.FromSeconds(5)).Result;
             var previousBlock = blocks.Last();
             string hash = SHA256Encoder.EncodeString(previousBlock.toJson());
-            
+
             var transactions = persistenceActorRef.GetActorRef()
                                                   .Ask<ReadOnlyCollection<Transaction>>(
                                                           new Persistence.GetUnconfirmedTransactions(),
