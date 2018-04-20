@@ -72,7 +72,7 @@
                 case Replay _:
                     if (!ConnectionIsClosed())
                     {
-                        var currentBlocks = _persistence.Ask<ReadOnlyCollection<Block>>(new Persistence_Messages.GetBlocks(), TimeSpan.FromSeconds(5)).Result;
+                        var currentBlocks = _persistence.Ask<ReadOnlyCollection<Block>>(new Persistence.GetBlocks(), TimeSpan.FromSeconds(5)).Result;
                         foreach (var block in currentBlocks)
                         {
                             _writer.WriteLine($"id:{block.Index}");

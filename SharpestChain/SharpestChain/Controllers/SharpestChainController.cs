@@ -49,7 +49,7 @@
                                            _persistenceActorRef
                                                    .GetActorRef()
                                                    .Ask<ReadOnlyCollection<Block>>(
-                                                           new Persistence_Messages.GetBlocks(),
+                                                           new Persistence.GetBlocks(),
                                                            TimeSpan.FromSeconds(5)).Result.Last().Index
                            };
 
@@ -62,7 +62,7 @@
         {
             var blocks = _persistenceActorRef.GetActorRef()
                                              .Ask<ReadOnlyCollection<Block>>(
-                                                     new Persistence_Messages.GetBlocks(),
+                                                     new Persistence.GetBlocks(),
                                                      TimeSpan.FromSeconds(5)).Result;
 
             return Content(JsonConvert.SerializeObject(blocks), "application/json", Encoding.UTF8);
@@ -74,7 +74,7 @@
         {
             var blocks = _persistenceActorRef.GetActorRef()
                                              .Ask<ReadOnlyCollection<Block>>(
-                                                     new Persistence_Messages.GetBlocks(),
+                                                     new Persistence.GetBlocks(),
                                                      TimeSpan.FromSeconds(5)).Result;
 
             var block = Miner.FindNewBlock(blocks.Last());

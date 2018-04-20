@@ -4,7 +4,7 @@
 
     using Data;
 
-    public partial class Persistence_Messages
+    public partial class Persistence
     {
         
         public sealed class GetBlocks

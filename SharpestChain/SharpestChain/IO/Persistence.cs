@@ -9,7 +9,7 @@
 
     using Eventing;
 
-    public class Persistence : UntypedActor
+    public partial class Persistence : UntypedActor
     {
         public static Props props(IActorRef connectionHolderActorRef) => Props.Create(() => new Persistence(connectionHolderActorRef));
 
@@ -33,7 +33,7 @@
                     _blocks.Add(block);
                     _connectionHolder.Tell(block);
                     break;
-                case Persistence_Messages.GetBlocks _:
+                case GetBlocks _:
                     Sender.Tell(_blocks.AsReadOnly());
                     break;
                     
