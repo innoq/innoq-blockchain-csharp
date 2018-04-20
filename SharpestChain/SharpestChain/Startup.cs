@@ -37,7 +37,7 @@
             var persistence = system.ActorOf(Persistence.props(eventConnectionHolder), "persistence");
 
             services.AddTransient(typeof(IEventConnectionHolderActorRef),
-                                  pServiceProvider => new EventConnectionHolderActorRefActorRef(eventConnectionHolder));
+                                  pServiceProvider => new EventConnectionHolderActorRef(eventConnectionHolder));
             services.AddTransient(typeof(IPersistenceActorRef),
                                   pServiceProvider => new PersistenceActorRef(persistence));
             services.AddMvc();
