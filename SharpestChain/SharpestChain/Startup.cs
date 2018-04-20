@@ -8,21 +8,26 @@
 
     using IO;
 
+    using JetBrains.Annotations;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    public class Startup
+    [UsedImplicitly]
+    public sealed class Startup
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        [UsedImplicitly]
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
             string appConfig = File.ReadAllText("app.config");
@@ -32,13 +37,14 @@
             var persistence = system.ActorOf(Persistence.props(eventConnectionHolder), "persistence");
 
             services.AddTransient(typeof(IEventConnectionHolderActorRef),
-                                  pServiceProvider => new EventConnectionHolderActorRefActorRef(eventConnectionHolder));
+                                  pServiceProvider => new EventConnectionHolderActorRef(eventConnectionHolder));
             services.AddTransient(typeof(IPersistenceActorRef),
                                   pServiceProvider => new PersistenceActorRef(persistence));
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [UsedImplicitly]
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

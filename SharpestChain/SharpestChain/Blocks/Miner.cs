@@ -10,8 +10,6 @@
 
     using Data;
 
-    using Eventing;
-
     using IO;
 
     using Util;
@@ -20,14 +18,13 @@
     {
         public static Block FindNewBlock(IPersistenceActorRef persistenceActorRef)
         {
-            
             var blocks = persistenceActorRef.GetActorRef()
-                                             .Ask<ReadOnlyCollection<Block>>(
-                                                     new Persistence.GetBlocks(),
-                                                     TimeSpan.FromSeconds(5)).Result;
+                                            .Ask<ReadOnlyCollection<Block>>(
+                                                    new Persistence.GetBlocks(),
+                                                    TimeSpan.FromSeconds(5)).Result;
             var previousBlock = blocks.Last();
             string hash = SHA256Encoder.EncodeString(previousBlock.toJson());
-            
+
             var transactions = persistenceActorRef.GetActorRef()
                                                   .Ask<ReadOnlyCollection<Transaction>>(
                                                           new Persistence.GetUnconfirmedTransactions(),
@@ -35,16 +32,14 @@
                                                   .Take(5);
             var candidate = new Block(previousBlock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, transactions, hash);
 
-            while (true)
+
+            string candidateHash = SHA256Encoder.EncodeString(candidate.toJson());
+
+
+            while (!candidateHash.StartsWith("0000", StringComparison.Ordinal))
             {
-                string candidateHash = SHA256Encoder.EncodeString(candidate.toJson());
-
-                if (candidateHash.StartsWith("0000", StringComparison.Ordinal))
-                {
-                    break;
-                }
-
                 candidate.IncrementProof();
+                candidateHash = SHA256Encoder.EncodeString(candidate.toJson());
             }
 
             return candidate;

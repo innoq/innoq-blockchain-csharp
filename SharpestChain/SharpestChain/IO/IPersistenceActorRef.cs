@@ -1,4 +1,4 @@
-﻿namespace Com.Innoq.SharpestChain.Eventing
+﻿namespace Com.Innoq.SharpestChain.IO
 {
     using Akka.Actor;
 
