@@ -22,18 +22,21 @@
             Payload = pPayload;
         }
 
+        [JsonIgnore]
         public Guid Id
         {
             get => id;
             private set => id = value;
         }
 
+        [JsonIgnore]
         public string Payload
         {
             get => payload;
             private set => payload = value;
         }
 
+        [JsonIgnore]
         public long Timestamp
         {
             get => timestamp;

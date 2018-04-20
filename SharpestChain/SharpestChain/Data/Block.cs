@@ -28,18 +28,21 @@
             PreviousBlockHash = pPreviousBlockHash;
         }
 
+        [JsonIgnore]
         public long Index
         {
             get => index;
             private set => index = value;
         }
 
+        [JsonIgnore]
         public string PreviousBlockHash
         {
             get => previousBlockHash;
             private set => previousBlockHash = value;
         }
 
+        [JsonIgnore]
         public long Proof
         {
             get => proof;
@@ -47,12 +50,14 @@
         }
 
 
+        [JsonIgnore]
         public long Timestamp
         {
             get => timestamp;
             private set => timestamp = value;
         }
 
+        [JsonIgnore]
         public Transaction[] Transactions
         {
             get => transactions;
