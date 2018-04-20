@@ -53,8 +53,7 @@
         [HttpGet("mine")]
         public async Task<IActionResult> Mine()
         {
-           var block = Miner.BlockFinder(Persistence.Get().Last());
-            
+            var block = Miner.FindNewBlock(Persistence.Get().Last());
             Persistence.Append(block);
            
             var byteArray = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(block));

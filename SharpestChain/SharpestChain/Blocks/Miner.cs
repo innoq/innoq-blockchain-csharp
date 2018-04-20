@@ -13,7 +13,7 @@
     {
        
        
-        public static Block BlockFinder(Block prevblock)
+        public static Block FindNewBlock(Block prevblock)
         {
             string hash = SHA256Encoder.EncodeString(prevblock.toJson());
             var candidate = new Block(prevblock.Index + 1, DateTime.Now.ToUnixTimestamp(), 0, new Transaction[]{},hash);
