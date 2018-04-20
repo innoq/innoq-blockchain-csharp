@@ -6,7 +6,8 @@
 
     public class Block
     {
-        public Block(long pIndex, long pTimestamp, long pProof, IEnumerable<Transaction> pTransactions, string pPreviousBlockHash)
+        public Block(long pIndex, long pTimestamp, long pProof, IEnumerable<Transaction> pTransactions,
+                     string pPreviousBlockHash)
         {
             Index = pIndex;
             Timestamp = pTimestamp;
@@ -35,17 +36,17 @@
             return JsonConvert.DeserializeObject<Block>(json);
         }
 
-
         public void IncrementProof()
         {
             Proof += 1;
         }
 
-        public override bool Equals (object block)
+        public override bool Equals(object block)
         {
             var other = block as Block;
 
-            if (other == null) {
+            if (other == null)
+            {
                 // it is not a Block, so definitely not equal!
                 return false;
             }
