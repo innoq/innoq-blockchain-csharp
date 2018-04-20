@@ -1,12 +1,17 @@
 ﻿namespace Com.Innoq.SharpestChain.Controllers
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
+
+    using Akka.Actor;
 
     using Blocks;
 
     using Data;
+
+    using Eventing;
 
     using IO;
 
@@ -14,10 +19,23 @@
 
     using Newtonsoft.Json;
 
+    using reservieren.Controllers;
+
     [Route("/")]
     public class SharpestChainController : Controller
     {
         private readonly string _nodeId = Guid.NewGuid().ToString();
+
+        private readonly IEventConnectionHolderActorRef _connectionHolderActorRef;
+
+        private readonly IPersistenceActorRef _persistenceActorRef;
+
+        public SharpestChainController(IEventConnectionHolderActorRef pConnectionHolderActorRef,
+                                       IPersistenceActorRef persistenceActorRef)
+        {
+            _connectionHolderActorRef = pConnectionHolderActorRef;
+            _persistenceActorRef = persistenceActorRef;
+        }
 
         // GET /
         [HttpGet]
@@ -26,7 +44,13 @@
             var nodeInfo = new NodeInfo
                            {
                                    NodeId = _nodeId,
-                                   CurrentBlockHeight = Persistence.Get().Count
+
+                                   CurrentBlockHeight =
+                                           _persistenceActorRef
+                                                   .GetActorRef()
+                                                   .Ask<ReadOnlyCollection<Block>>(
+                                                           new Persistence.GetBlocks(),
+                                                           TimeSpan.FromSeconds(5)).Result.Last().Index
                            };
 
             return Content(JsonConvert.SerializeObject(nodeInfo), "application/json", Encoding.UTF8);
@@ -36,16 +60,32 @@
         [HttpGet("blocks")]
         public IActionResult Blocks()
         {
-            return Content(JsonConvert.SerializeObject(Persistence.Get()), "application/json", Encoding.UTF8);
+            var blocks = _persistenceActorRef.GetActorRef()
+                                             .Ask<ReadOnlyCollection<Block>>(
+                                                     new Persistence.GetBlocks(),
+                                                     TimeSpan.FromSeconds(5)).Result;
+
+            return Content(JsonConvert.SerializeObject(blocks), "application/json", Encoding.UTF8);
         }
 
         // GET mine
         [HttpGet("mine")]
         public IActionResult Mine()
         {
-            var block = Miner.FindNewBlock(Persistence.Get().Last());
-            Persistence.Append(block);
+            var blocks = _persistenceActorRef.GetActorRef()
+                                             .Ask<ReadOnlyCollection<Block>>(
+                                                     new Persistence.GetBlocks(),
+                                                     TimeSpan.FromSeconds(5)).Result;
+
+            var block = Miner.FindNewBlock(blocks.Last());
+
+            _persistenceActorRef.GetActorRef().Tell(block);
+
             return Content(block.toJson(), "application/json", Encoding.UTF8);
         }
+
+        [HttpGet("events")]
+        public IActionResult Events()
+            => new PushActorStreamResult(_connectionHolderActorRef, "text/event-stream", _persistenceActorRef);
     }
 }
