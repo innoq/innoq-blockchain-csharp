@@ -7,8 +7,9 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.TestHost;
 
-    using Xunit;
+    using NUnit.Framework;
 
+    [TestFixture]
     public class SharpestChainControllerTests
     {
         private readonly TestServer _server;
@@ -24,8 +25,8 @@
             _client.BaseAddress = new Uri("http://localhost:5000");
         }
 
-        [Fact]
-        private async Task NodeInfo()
+        [TestCase]
+        public async Task NodeInfo()
         {
             // Act
             var response = await _client.GetAsync("/");
