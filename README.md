@@ -11,14 +11,19 @@ by it.
 Licensed under MIT license.
 
 ## Technology
-We used simple asp.net core 2.0 and added nuget packages for Akka.NET
-(used for server sent events), nunit (unit testing), Newtonsoft's JSON framework
-(used to parse JSON objects) and Jetbrains Annotations. 
+We used simple asp.net core 2.0 and added nuget packages for
+[Akka.NET](https://getakka.net) (used for server sent events),
+[NUnit](https://nunit.org) (unit testing framework),
+[Newtonsoft's JSON .NET](https://www.newtonsoft.com/json) (used to parse JSON)
+and [Jetbrains Annotations](https://www.nuget.org/packages/JetBrains.Annotations). 
 
 ## Execute
-Run the project and the endpoints will be reachable under 
+Run the project and the endpoints will be reachable under http://localhost:5000
 
 ### Existing endpoints
+All endpoints are stored as an example configuration for postman
+[here](https://github.com/innoq/innoq-blockchain-csharp/blob/master/sharpestChain-postman.json "sharpestChain-postman.json").
+
 Endpoint (GET) | explanation
 --- | --- 
 / | Information about the current node (your laptop, pc, process)
