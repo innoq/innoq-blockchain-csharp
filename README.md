@@ -16,6 +16,19 @@ We used simple asp.net core 2.0 and added nuget packages for Akka.NET
 (used to parse JSON objects) and Jetbrains Annotations. 
 
 ## Execute
-Run the project and the endpoints will be reachable under http://localhost:5000
+Run the project and the endpoints will be reachable under 
 
+### Existing endpoints
+Endpoint (GET) | explanation
+--- | --- 
+/ | Information about the current node (your laptop, pc, process)
+/blocks | Lists all existing blocks. If you haven't mined any block yet, only the genesis block will be displayed
+/mine | Mine a new block for the chain. This might take a few seconds
+/transactions | List all available transactions that will be stored in a block
+/transactions/{id} | Show details of specific transaction, identified by {id}
+/events | List all events that have happened so far
+
+Endpoint (POST) | explanation
+--- | --- 
+/transactions | Allows you to store a transaction. A transaction may only contain a payload (string)
 
